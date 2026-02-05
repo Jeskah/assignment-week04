@@ -1,6 +1,7 @@
 const display = document.getElementById('app');
 const form = document.getElementById('form');
-const baseURL = 'http://localhost:7777'
+const baseURL = 'https://client-i6sr.onrender.com'
+// 'http://localhost:7777'
 
 
 async function fetchData() {
