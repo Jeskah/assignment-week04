@@ -1,14 +1,15 @@
-import express from "express"
-import pg from "pg"
-import cors from "cors"
-import dotenv from "dotenv"
+import express from "express";
+import pg from "pg";
+import cors from "cors";
+import dotenv from "dotenv";
+
 dotenv.config();
-
-const app = express();
-
 const db = new pg.Pool({
     connectionString: process.env.DB_CONN,
 });
+
+const app = express();
+
 
 console.log(process.env.DB_CONN);
 
@@ -41,7 +42,6 @@ app.post('/ParanormalExperiences', async (request, response) => {
     const dbQuery = await db.query(`INSERT INTO "ParanormalExperiences" (name, date, event) VALUES ($1, $2, $3)`, [name, date, event]);
 
     response.status(200).json({ success: true});
-    response.status(201).json(dbQuery.rows[0]);
 
 }   catch (err) {
         console.error(err);

@@ -1,12 +1,12 @@
 const display = document.getElementById('app');
 const form = document.getElementById('form');
-const baseURL = 'http://localhost:7777/ParanormalExperiences'
+const baseURL = 'http://localhost:7777'
 
 
 async function fetchData() {
-  const response = await fetch(`http://localhost:7777/ParanormalExperiences`);
-  const data = await response.json();
 
+  const response = await fetch(`${baseURL}/ParanormalExperiences`);
+  const data = await response.json();
   return data;
 };
 
