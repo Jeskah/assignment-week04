@@ -1,18 +1,18 @@
-import express from "express";
-import pg from "pg";
-import cors from "cors";
-import dotenv from "dotenv";
+import dotenv from "dotenv"
 
 dotenv.config();
 const db = new pg.Pool({
     connectionString: process.env.DB_CONN,
-});
-
-const app = express();
-
+})
 
 console.log(process.env.DB_CONN);
 
+
+import express from "express"
+import pg from "pg"
+import cors from "cors"
+
+const app = express();
 
 app.use(express.json());
 app.use(cors());
