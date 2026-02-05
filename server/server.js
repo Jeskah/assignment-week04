@@ -49,10 +49,15 @@ app.post('/ParanormalExperiences', async (request, response) => {
     }
 });
 
+const PORT = process.env.PORT || 7777;
 
-
-
-app.listen(7777, () => {
-    console.log("server listening for requests made to http://localhost:7777");
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
+
+
+
+// app.listen(7777, () => {
+//     console.log("server listening for requests made to http://localhost:7777");
+// });
 
