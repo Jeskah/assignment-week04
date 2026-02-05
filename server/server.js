@@ -2,16 +2,20 @@ import express from "express"
 import pg from "pg"
 import cors from "cors"
 import dotenv from "dotenv"
+dotenv.config();
 
 const app = express();
-
-app.use(express.json());
-app.use(cors());
-dotenv.config();
 
 const db = new pg.Pool({
     connectionString: process.env.DB_CONN,
 });
+
+console.log(process.env.DB_CONN);
+
+
+app.use(express.json());
+app.use(cors());
+
 
 app.get('/', (request, response) => {
     response.status(200).json({ status: "ok"});
