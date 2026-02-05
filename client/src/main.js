@@ -37,7 +37,7 @@ async function handleSubmit(e) {
   const formData = new FormData(form);
   const userInput = Object.fromEntries(formData.entries());
 
-  const response = await fetch(baseURL, {
+  const response = await fetch(`${baseURL}/ParanormalExperiences`, {
     headers: { "Content-Type": "application/json"},
     method:"POST",
     body: JSON.stringify(userInput),
