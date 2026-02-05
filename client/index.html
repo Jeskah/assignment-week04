@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>client</title>
+    <link rel="stylesheet" href="src/style.css">
+  </head>
+
+<body>
+
+    <form id="form">
+      <input type="text" placeholder="name" name="name" />
+      <input type="text" placeholder="date" name="date" />
+      <input type="text" placeholder="event" name="event" />
+      <button type="submit">post!</button>
+    </form>
+
+    <div class="table">
+        <div class="row-header">
+        <!-- <span>NAME</span>
+        <span>DATE</span>
+        <span>EVENT</span> -->
+      <div id="app" class="events-occured"></div>
+    </div>
+
+<script type="module" src="/src/main.js" defer></script>
+    
+  </body>
+</html>
