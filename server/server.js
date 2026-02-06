@@ -52,7 +52,7 @@ app.post('/ParanormalExperiences', async (request, response) => {
 const PORT = process.env.PORT || 7777;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+    console.log(`Server listening on port ${PORT}`);
 });
 
 
