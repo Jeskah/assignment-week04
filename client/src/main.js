@@ -1,9 +1,14 @@
 const display = document.getElementById('app');
 const form = document.getElementById('form');
 const baseURL = 'https://server-e0q2.onrender.com'
-// 'https://client-i6sr.onrender.com/' -! LINK TO CLIENT !
-// 'http://localhost:7777' -! SEREVER LOCAL PORT !-
+// 'http://localhost:7777'
 
+let anonId = localStorage.getItem("anon-id");
+
+if (!anonId) {
+  anonId = crypto.randomUUID();
+  localStorage.setItem("anon-id", anonId);
+};
 
 async function fetchData() {
 
@@ -15,54 +20,43 @@ async function fetchData() {
 
 async function displayMessages() {
   display.innerHTML = "";
-
-  let anonId = localStorage.getItem("anon_id");
-
-if (!anonId) {
-  anonId = crypto.randomUUID();
-  localStorage.setItem("anon_id", anonId);
-
-  console.log("POSTING:", userInput);
-
-};
-
   const ParanormalExperiences = await fetchData();
 
   ParanormalExperiences.forEach((message) => {
+    console.log(message);
+    console.log("row anon_id:", message.anon_id);
+console.log("local anonId:", anonId);
+
 
     const row = document.createElement('div');
     row.classList.add('row');
 
-    console.log(message);
-    // console.log("row anon_id:", message.anon_id);
-    console.log("local anonId:", anonId);
-
     row.innerHTML = `
-      <div class="cell">${message.name}</div>
-      <div class="cell">${new Date(message.date).toLocaleDateString()}</div>
-      <div class="cell">${message.event}</div>
-      <div class="cell actions"></div>
-`;
-      
-    if (message.anon_id === anonId) {
-    const actionCell = row.querySelector('.actions');
+      <span>${message.name}</span>
+      <span>${new Date(message.date).toLocaleDateString()}</span>
+      <span>${message.event}</span>
+    `;
 
+
+// console.log("DB anon_id:", message.anon_id);
+// console.log("Local anonId:", anonId);
+
+
+
+  if (message.anon_id === anonId) {
     const editBtn = document.createElement('button');
     editBtn.textContent = 'Edit';
 
     editBtn.onclick = () => {
-    console.log("Edit: message:", message.anon_id);
+    console.log("Edit: message:", message.id);
   };
 
-  actionCell.appendChild(editBtn);
+  row.appendChild(editBtn);
 }
 
     display.appendChild(row);
   });
-};
-
-// console.log("DB anon_id:", message.anon_id);
-// console.log("Local anonId:", anonId);
+}
 
 
 async function handleSubmit(e) {
@@ -73,13 +67,10 @@ async function handleSubmit(e) {
 
   userInput.anon_id = anonId;
 
-  console.log("CLIENT SENDING:", JSON.stringify(userInput));
-
   const response = await fetch(`${baseURL}/ParanormalExperiences`, {
     headers: { "Content-Type": "application/json"},
     method:"POST",
     body: JSON.stringify(userInput),
-    
   });
 
 if (!response.ok) {
@@ -95,6 +86,4 @@ form.addEventListener('submit', handleSubmit);
 
 
 displayMessages();
-
-
 

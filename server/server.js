@@ -19,13 +19,14 @@ app.use(cors());
 
 
 app.get('/', (request, response) => {
-    response.status(200).json({ status: "ok"});
+    response.status(200).json({status: "ok"});
 });
 
 
 app.get('/ParanormalExperiences', async (request, response) => {
 try {
-    const data = await db.query(`SELECT * FROM "ParanormalExperiences"`);
+    const data = await db.query(`SELECT * FROM "ParanormalExperiences"
+                ORDER BY id DESC`);
 
     response.status(200).json(data.rows);
 }
@@ -41,20 +42,19 @@ app.post('/ParanormalExperiences', async (request, response) => {
     try {
     const {anon_id, name, date, event} = request.body
 
-    const result = await db.query(`INSERT INTO "ParanormalExperiences" (anon_id, name, date, event) 
-    VALUES ($1, $2, $3, $4)
-    RETURNING * `,
-    [anon_id, name, date, event]
+        const result = await db.query(`INSERT INTO "ParanormalExperiences" (anon_id, name, date, event) 
+        VALUES ($1, $2, $3, $4)
+        RETURNING * `,
+        [anon_id, name, date, event]
     );
 
     response.status(201).json(result.rows[0]);
-
-
-}   catch (err) {
+}   
+catch (err) {
         console.error(err);
         response.status(500).json({ error: err.message});
         
-    }
+    }   
 });
 
 
