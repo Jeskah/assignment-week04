@@ -36,18 +36,27 @@ catch (err) {
 });
 
 app.post('/ParanormalExperiences', async (request, response) => {
+    console.log("SERVER RECEIVED:", request.body);
+
     try {
-    const { name, date, event } = request.body
+    const {anon_id, name, date, event} = request.body
 
-    const dbQuery = await db.query(`INSERT INTO "ParanormalExperiences" (name, date, event) VALUES ($1, $2, $3)`, [name, date, event]);
+    const result = await db.query(`INSERT INTO "ParanormalExperiences" (anon_id, name, date, event) 
+    VALUES ($1, $2, $3, $4)
+    RETURNING * `,
+    [anon_id, name, date, event]
+    );
 
-    response.status(200).json({ success: true});
+    response.status(201).json(result.rows[0]);
+
 
 }   catch (err) {
         console.error(err);
         response.status(500).json({ error: err.message});
+        
     }
 });
+
 
 const PORT = process.env.PORT || 7777;
 
